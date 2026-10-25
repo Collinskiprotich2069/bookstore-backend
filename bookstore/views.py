@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from requests import get, post, patch, delete
-from . models import Books
+from . models import Books, Author
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,9 +10,18 @@ from rest_framework.decorators import api_view
 
 
 from django.contrib.auth.models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, AuthorSerializer
 
 
+class AuthorView(APIView):
+    def post(self,request):
+        model = Author
+        serializer = AuthorSerializer
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
