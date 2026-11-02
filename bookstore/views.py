@@ -45,7 +45,7 @@ class AuthorView(APIView):
 
 
 class BookListView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     http_method_names = ["get", "post", "delete", "patch"]
 
     def post(self, request):
