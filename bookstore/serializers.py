@@ -20,7 +20,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        # we are using email as username to avoid aking username
+        # we are using email as username to avoid asking username
 
         user = User.objects.create_user(
             username=validated_data["email"],
@@ -52,7 +52,10 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BooksSerializer(serializers.ModelSerializer):
-
+    title = serializers.CharField(max_length=70)
+    image_cover = serializers.ImageField()
+    uploaded_at = serializers.DateTimeField()
+    file = serializers.FileField(max_length=100)
     class Meta:
         model = Books
         fields = "__all__"
